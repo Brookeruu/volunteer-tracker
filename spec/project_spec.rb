@@ -15,11 +15,11 @@ end
       expect(project.id).to eq nil
     end
 #
-#     it 'returns the id of the project after saving project' do
-#       project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
-#       project.save
-#       expect(project.id).to be_an_instance_of Integer
-#     end
+    it 'returns the id of the project after saving project' do
+      project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
+      project.save
+      expect(project.id).to be_an_instance_of Integer
+    end
   end
 #
 #   describe '#==' do
