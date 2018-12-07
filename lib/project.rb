@@ -32,7 +32,29 @@ class Project
     project_id = DB.exec("SELECT * FROM projects WHERE id = #{id};")
     title = project_id.first.fetch("title")
     Project.new({:title => title, :id => id})
+  end
 
+
+  def volunteers
+    projects_volunteers = []
+    volunteers = DB.exec("SELECT volunteer_id FROM projects_volunteers_join WHERE project_id = #{self.id};")
+      volunteers.each do |volunteer|
+        volunteer_id = volunteer.fetch("volunteer_id").to_i
+        volunteer = DB.exec("SELECT * FROM volunteers WHERE id = #{volunteer_id};")
+        name = volunteer.first.fetch("name")
+        projects_volunteers.push(Volunteer.new({:name => name, :id => volunteer_id}))
+      end
+      projects_volunteers
+  end
+
+  def update(attributes)
+    @title = attributes.fetch(:title, @title)
+    @id = self.id
+    DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+
+    attributes.fetch(:volunteer_ids, []).each do |volunteer_id|
+      DB.exec("INSERT INTO projects_volunteers_join (project_id, volunteer_id) VALUES (#{self.id}, #{volunteer_id});")
+    end
   end
 
 end
