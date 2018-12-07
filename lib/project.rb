@@ -15,8 +15,17 @@ class Project
 
   def ==(other)
     self.title.==(other.title).&(self.id.==(other.id))
-
   end
 
+  def self.all
+    project_list = []
+    projects = DB.exec("SELECT * FROM projects;")
+    projects.each do |project|
+      title = project.fetch("title")
+      id = project.fetch("id").to_i
+      project_list.push(Project.new(:title => title, :id => id))
+    end
+    project_list
+  end
 
 end
