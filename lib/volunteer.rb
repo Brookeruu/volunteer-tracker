@@ -8,10 +8,19 @@ class Volunteer
   end
 
   def ==(other)
-    @name ==other.name    
+    @name ==other.name && @id == other.id
   end
 
-
+  def self.all
+    volunteers = []
+    volunteer_list = DB.exec("SELECT * FROM volunteers;")
+    volunteer_list.each do |volunteer|
+      name = volunteer.fetch("name")
+      id = volunteer.fetch("id")
+      volunteers.push(Volunteer.new(:name => name, :id => id))
+    end
+    volunteers
+  end
 
 
 end

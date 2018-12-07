@@ -23,10 +23,11 @@ describe Volunteer do
     end
   end
   #
-  # context '.all' do
-  #   it 'is empty to start' do
-  #     expect(Volunteer.all).to eq []
-  #   end
+  context '.all' do
+    it 'is empty to start' do
+      expect(Volunteer.all).to eq []
+    end
+  end
   #
   #   it 'returns all volunteers' do
   #     volunteer1 = Volunteer.new({:name => 'Jane', :project_id => 1, :id => nil})
