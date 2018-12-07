@@ -22,14 +22,14 @@ end
     end
   end
 #
-#   describe '#==' do
-#     it 'is the same project if two projects have the same title' do
-#       project1 = Project.new({:title => 'Teaching Kids to Code', :id => nil})
-#       project2 = Project.new({:title => 'Teaching Kids to Code', :id => nil})
-#       expect(project1 == project2).to eq true
-#     end
-#   end
-#
+  describe '#==' do
+    it 'is the same project if two projects have the same title' do
+      project1 = Project.new({:title => 'Teaching Kids to Code', :id => nil})
+      project2 = Project.new({:title => 'Teaching Kids to Code', :id => nil})
+      expect(project1 == project2).to eq true
+    end
+  end
+
 #   context '.all' do
 #     it 'is empty to start' do
 #       expect(Project.all).to eq []

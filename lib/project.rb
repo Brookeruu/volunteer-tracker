@@ -11,9 +11,12 @@ class Project
   def save
     project_list = DB.exec("INSERT INTO projects (title) VALUES ('#{@title}') RETURNING id;")
     @id = project_list.first.fetch("id").to_i
-
   end
 
+  def ==(other)
+    self.title.==(other.title).&(self.id.==(other.id))
+
+  end
 
 
 end
