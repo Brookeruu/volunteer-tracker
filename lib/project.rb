@@ -35,26 +35,53 @@ class Project
   end
 
 
+  # def volunteers
+  #   projects_volunteers = []
+  #   volunteers = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
+  #     volunteers.each do |volunteer|
+  #       volunteer_id = volunteer.fetch("volunteer_id").to_i
+  #       volunteer = DB.exec("SELECT * FROM volunteers WHERE id = #{volunteer_id};")
+  #       name = volunteer.first.fetch("name")
+  #       projects_volunteers.push(Volunteer.new({:name => name, :id => volunteer_id}))
+  #     end
+  #     projects_volunteers
+  # end
+
   def volunteers
-    projects_volunteers = []
-    volunteers = DB.exec("SELECT volunteer_id FROM projects_volunteers_join WHERE project_id = #{self.id};")
+    list_volunteers = []
+    volunteers = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
       volunteers.each do |volunteer|
-        volunteer_id = volunteer.fetch("volunteer_id").to_i
-        volunteer = DB.exec("SELECT * FROM volunteers WHERE id = #{volunteer_id};")
         name = volunteer.first.fetch("name")
-        projects_volunteers.push(Volunteer.new({:name => name, :id => volunteer_id}))
+        volunteer_id = volunteer.fetch("volunteer_id").to_i
+        project_id = project.fetch("project_id").to_i
+        # volunteer = DB.exec("SELECT * FROM volunteers WHERE id = #{volunteer_id};")
+        list_volunteers.push(Volunteer.new({:name => name, :project_id => project_id, :id => volunteer_id}))
       end
-      projects_volunteers
+      list_volunteers
   end
 
-  def update(attributes)
-    @title = attributes.fetch(:title, @title)
-    @id = self.id
-    DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
 
-    attributes.fetch(:volunteer_ids, []).each do |volunteer_id|
-      DB.exec("INSERT INTO projects_volunteers_join (project_id, volunteer_id) VALUES (#{self.id}, #{volunteer_id});")
+
+    def update(attributes)
+      @title = attributes.fetch(:title, @title)
+      @id = self.id
+      DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+
+      attributes.fetch(:volunteer_ids, []).each do |volunteer_id|
+        DB.exec("INSERT INTO volunteers (id, name, project_id) VALUES ('#{self.id}', '#{self.name},'#{project_id});")
+      end
     end
-  end
+
+
+  #
+  # def update(attributes)
+  #   @title = attributes.fetch(:title, @title)
+  #   @id = self.id
+  #   DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+  #
+  #   attributes.fetch(:volunteer_ids, []).each do |volunteer_id|
+  #     DB.exec("INSERT INTO projects_volunteers_join (project_id, volunteer_id) VALUES (#{self.id}, #{volunteer_id});")
+  #   end
+  # end
 
 end
