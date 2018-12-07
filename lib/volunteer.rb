@@ -8,7 +8,8 @@ class Volunteer
   end
 
   def ==(other)
-    @name ==other.name && @id == other.id
+    self.name.==(other.name).&(self.id.==(other.id))
+    # @name ==other.name && @id == other.id && @project_id == (other.project_id)
   end
 
   def self.all
@@ -16,11 +17,17 @@ class Volunteer
     volunteer_list = DB.exec("SELECT * FROM volunteers;")
     volunteer_list.each do |volunteer|
       name = volunteer.fetch("name")
-      id = volunteer.fetch("id")
-      volunteers.push(Volunteer.new(:name => name, :id => id))
+      id = volunteer.fetch("id").to_i
+      project_id = volunteer.fetch("project_id").to_i
+      volunteers.push(Volunteer.new(:name => name, :id => id, :project_id => project_id))
     end
     volunteers
   end
 
+
+  def save
+    volunteer_list = DB.exec("INSERT INTO volunteers (name) VALUES ('#{@name}') RETURNING id;")
+    @id = volunteer_list.first.fetch("id").to_i
+  end
 
 end
