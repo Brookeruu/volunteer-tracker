@@ -7,7 +7,9 @@ class Volunteer
     @project_id = attributes.fetch(:project_id)
   end
 
-
+  def ==(other)
+    @name ==other.name    
+  end
 
 
 
