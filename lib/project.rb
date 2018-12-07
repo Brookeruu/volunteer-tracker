@@ -1,0 +1,12 @@
+require ('spec_helper')
+
+class Project
+  attr_reader :title, :id
+
+  def initialize(attributes)
+    @title = attributes.fetch(:title)
+    @id = attributes.fetch(:id).to_i
+
+  end
+
+end
