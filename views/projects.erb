@@ -1,69 +1,16 @@
-<!-- <h3>Projects page</h3>
-
-
-<% if @projects.any? %>
-  <h3>List of projects:</h3>
-
-  <ul>
-    <% @project.each do |project| %>
-      <li><a href="/projects/<%= project.id()%>"><%= project.title %></a> </li>
-    <% end %>
-  </ul>
-
-<% else %>
-
-    <p>There are no projects yet!</p>
-
-<% end %>
-
-<form class="form-group" action="/projects" method="post">
-  <h4>Add new project</h4>
-  <div class="add_project">
-    <label for="new_project"></label>
-    <input type="text" name="new_project" id="new_project">
-  </div>
-    <button type="submit" name="button">Create Project</button>
-  </form> -->
 
 
 
-  <h3>Projects Portal</h3>
+  <h3>Project Portal</h3>
+
+<h3><%= @projects.title %></h3>
+
+<form class="form-group" action="/projects/<%= @id %>/update" method="patch">
+
+  <label for="new_title">Edit Project Title</label>
+  <input type="text" name="new_title" id="new_title">
+<button type="submit" name="button">Update Project</button>
+
+</form>
+
   <a href="/">Back to Home</a>
-
-  <% if @projects.length > 0 %>
-    <%= '<h4>Projects</h4>' %>
-  <% end %>
-
-  <ul>
-    <% @projects.each do |project| %>
-      <li>  <%= project.name %> </li>
-    <% end %>
-  </ul>
-
-  <form class="form-group" action="/admin" method="post">
-    <h4>Add new project:</h4>
-    <div class="add_project">
-      <label for="title">Project:</label>
-      <input type="text" name="title" id="title">
-    </div>
-    <button type="submit" class="btn btn-success" name="button">Add Project</button>
-  </form>
-
-  <% if @volunteers.length > 0 %>
-    <%= '<h4>Volunteers</h4>' %>
-  <% end %>
-
-  <ul>
-    <% @volunteers.each do |volunteer| %>
-      <li><a href="/volunteers/<%= volunteer.id %>"><%= volunteer.name %></a></li>
-    <% end %>
-  </ul>
-
-  <form class="form-group" action="/admin" method="post">
-    <h4>Add new volunteer</h4>
-    <div class="add_volunter">
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name">
-      <button type="submit" class="btn btn-info" name="button">Add Patient</button>
-    </div>
-  </form>
