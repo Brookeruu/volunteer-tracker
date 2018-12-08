@@ -70,11 +70,11 @@ end
       volunteer1.save
       volunteer2 = Volunteer.new({:name => 'Joe', :project_id => project.id, :id => nil})
       volunteer2.save
-      # project.update({:project_ids => [volunteer1.id, volunteer2.id]})
+      project.update({:project_ids => [volunteer1.id, volunteer2.id]})
       expect(project.volunteers).to eq [volunteer1, volunteer2]
     end
   end
-
+  #
   describe '#update' do
     it 'allows a user to update a project' do
       project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
@@ -83,13 +83,13 @@ end
       expect(project.title).to eq 'Teaching Ruby to Kids'
     end
   end
-#
-#   context '#delete' do
-#     it 'allows a user to delete a project' do
-#       project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
-#       project.save
-#       project.delete
-#       expect(Project.all).to eq []
-#     end
-#   end
+
+  context '#delete' do
+    it 'allows a user to delete a project' do
+      project = Project.new({:title => 'Teaching Kids to Code', :id => nil})
+      project.save
+      project.delete
+      expect(Project.all).to eq []
+    end
+  end
 # end

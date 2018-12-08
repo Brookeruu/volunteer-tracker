@@ -36,13 +36,6 @@ class Volunteer
     id = volunteer_id.fetch("id").to_i
     project_id = volunteer_id.fetch("project_id").to_i
     Volunteer.new({:name => name, :id => id, :project_id => project_id})
-
-
-
-
-
-
-
   end
 
 end
