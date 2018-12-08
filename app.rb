@@ -19,5 +19,12 @@ get('/projects') do
 end
 
 post('/projects') do
-  # if params[]
+  if params["new_project"]
+    title = params["new_project"]
+    project = Project.new(:title => title, :id => nil)
+    project.save
+  end
+  @projects = Project.all
+  @volunteers = Volunteer.all
+  erb(:projects)
 end
