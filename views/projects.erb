@@ -5,12 +5,20 @@
 
 <h3><%= @projects.title %></h3>
 
-<form class="form-group" action="/projects/<%= @id %>/update" method="patch">
-
+<form class="form-group" action="/projects/<%= @id %>/update" method="post">
+<input type="hidden" name="_method" value="patch">
   <label for="new_title">Edit Project Title</label>
   <input type="text" name="new_title" id="new_title">
 <button type="submit" name="button">Update Project</button>
 
 </form>
+
+<form class="form-group" action="/projects/" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Delete Project</button>
+
+</form>
+
+
 
   <a href="/">Back to Home</a>
