@@ -35,7 +35,7 @@ class Project
     title = project_id.first.fetch("title")
     Project.new({:title => title, :id => id})
   end
-
+end
 
   # def volunteers
   #   projects_volunteers = []
@@ -49,33 +49,33 @@ class Project
   #     projects_volunteers
   # end
 
-
-  def volunteers
-    list_volunteers = []
-    volunteers = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
-    volunteers.each do |volunteer|
-      name = volunteer.fetch("name")
-      project_id = volunteer.fetch("project_id").to_i
-      list_volunteers.push(Volunteer.new({:name => name, :project_id => project_id,}))
-    end
-    list_volunteers
-  end
-
-
-  def update(attributes)
-    @title = attributes.fetch(:title, @title)
-    @id = self.id
-    DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
-
-    attributes.fetch(:volunteer_ids, []).each do |volunteer_id|
-      DB.exec("INSERT INTO volunteers (project_id, volunteer_id) VALUES (#{self.id}, #{volunteer_id});")
-    end
-  end
-
-
-  def delete
-    DB.exec("DELETE FROM projects WHERE id =#{self.id};")
-  end
-
-
-end
+#
+#   def volunteers
+#     list_volunteers = []
+#     volunteers = DB.exec("SELECT * FROM volunteers WHERE project_id = #{self.id};")
+#     volunteers.each do |volunteer|
+#       name = volunteer.fetch("name")
+#       project_id = volunteer.fetch("project_id").to_i
+#       list_volunteers.push(Volunteer.new({:name => name, :project_id => project_id,}))
+#     end
+#     list_volunteers
+#   end
+#
+#
+#   def update(attributes)
+#     @title = attributes.fetch(:title, @title)
+#     @id = self.id
+#     DB.exec("UPDATE projects SET title = '#{@title}' WHERE id = #{@id};")
+#
+#     attributes.fetch(:volunteer_ids, []).each do |volunteer_id|
+#       DB.exec("INSERT INTO volunteers (project_id, volunteer_id) VALUES (#{self.id}, #{volunteer_id});")
+#     end
+#   end
+#
+#
+#   def delete
+#     DB.exec("DELETE FROM projects WHERE id =#{self.id};")
+#   end
+#
+#
+# end

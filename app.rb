@@ -9,21 +9,24 @@ require("pg")
 DB = PG.connect({:dbname => "volunteer_tracker"})
 
 get '/' do
+  @projects = Project.all
+  @volunteers = Volunteer.all
   erb(:index)
 end
 
-get('/projects') do
-  @projects = Project.all
-  @volunteers = Volunteer.all
-  erb(:projects)
-end
-
-post('/projects') do
-  if params["new_project"]
-    title = params["new_project"]
+post('/') do
+  if params["title"]
+    title = params["title"]
     project = Project.new(:title => title, :id => nil)
     project.save
   end
+  @projects = Project.all
+  @volunteers = Volunteer.all
+  erb(:index)
+end
+
+
+get('/projects') do
   @projects = Project.all
   @volunteers = Volunteer.all
   erb(:projects)

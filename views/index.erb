@@ -1,3 +1,20 @@
+
 <h3><a href="/projects">Projects</a></h3>
 
-<h3><a href="/volunteers">Volunteers</a></h3>
+
+<ul>
+  <% @projects.each do |project| %>
+    <li> <a href="/projects/<%= project.id %>"> <%= project.title %> </a> </li>
+  <% end %>
+</ul>
+
+<form class="form-group" action="/" method="post">
+
+  <div class="add_project">
+    <label for="title">Project:</label>
+    <input type="text" name="title" id="title">
+  </div>
+  <button type="submit" class="btn btn-success" name="button">Add Project</button>
+</form>
+
+<a href="/">Back to Home</a>
