@@ -8,7 +8,7 @@ require("pg")
 
 DB = PG.connect({:dbname => "volunteer_tracker"})
 
-get('/') do
+get '/' do
   erb(:index)
 end
 

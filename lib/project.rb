@@ -1,6 +1,3 @@
-require ('spec_helper')
-require ('volunteer')
-
 class Project
   attr_reader :title, :id
 
