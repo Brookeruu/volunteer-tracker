@@ -5,19 +5,21 @@
 
 <h3><%= @projects.title %></h3>
 
-<form class="form-group" action="/projects/<%= @id %>/update" method="post">
+<!-- <form class="form-group" action="/projects/<%= @id %>/update" method="post">
 <input type="hidden" name="_method" value="patch">
   <label for="new_title">Edit Project Title</label>
-  <input type="text" name="new_title" id="new_title">
+  <input type="text" name="new_title" id="new_title" required>
 <button type="submit" name="button">Update Project</button>
 
-</form>
+</form> -->
 
-<form class="form-group" action="/projects/" method="post">
+<form class="form-group" action="/projects/update" method="post">
   <input type="hidden" name="_method" value="delete">
   <button type="submit">Delete Project</button>
 
 </form>
+
+<h4> <a href="/projects/<%= @id %>/update">Edit Project Title</a> </h4>
 
 
 
