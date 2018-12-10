@@ -55,10 +55,18 @@ patch('/projects/:id/') do
   erb(:projects)
 end
 
-delete('/projects/update') do
+get('/projects/:id/edit') do
   @id = params[:id].to_i
   project_id = params["id"].to_i
   @project = Project.find(project_id)
+  @projects = Project.all
+  erb(:edit)
+end
+
+delete('/projects/:id') do
+  # @id = params[:id].to_i
+  # project_id = params["id"].to_i
+  @project = Project.find(params.fetch("id").to_i)
   @project.delete
   @projects = Project.all
   erb(:index)
