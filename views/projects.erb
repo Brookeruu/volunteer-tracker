@@ -3,24 +3,31 @@
 
   <h3>Project Portal</h3>
 
-<h3><%= @projects.title %></h3>
+<h3><%= @project.title %></h3>
 
-<!-- <form class="form-group" action="/projects/<%= @id %>/update" method="post">
-<input type="hidden" name="_method" value="patch">
-  <label for="new_title">Edit Project Title</label>
-  <input type="text" name="new_title" id="new_title" required>
-<button type="submit" name="button">Update Project</button>
 
-</form> -->
 
-<h4> <a href="/projects/<%= @id %>/update">Edit Project Title</a> </h4>
+<ul>
+  <% @volunteers.each do |volunteer| %>
+    <li> <a href="/volunteer/<%= volunteer.id %>"> <%= volunteer.name %> </a> </li>
+  <% end %>
+</ul>
 
-<h4> <a href="/projects/<%= @id %>/edit">Delete Project</a> </h4>
+<form class="form-group" action="/project/:id" method="post">
 
-<!-- <form class="form-group" action="/" method="post">
-  <input type="hidden" name="_method" value="delete">
-  <button type="submit" class="btn btn-danger btn-sm">Delete Project</button>
+  <div class="add_volunteer">
+    <label for="name">Volunteers :</label>
+    <input type="text" name="name" id="name" required placeholder="Name">
+  </div>
+  <button type="submit" class="btn btn-success" name="button">Add volunteer</button>
+</form>
 
-</form> -->
+
+
+
+<h4> <a href="/project/<%= @id %>/update">Edit Project Title</a> </h4>
+
+<h4> <a href="/project/<%= @id %>/edit">Delete Project</a> </h4>
+
 
 <a href="/">Back to Home</a>

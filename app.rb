@@ -10,7 +10,6 @@ DB = PG.connect({:dbname => "volunteer_tracker_test"})
 
 get '/' do
   @projects = Project.all
-  @volunteers = Volunteer.all
   erb(:index)
 end
 
@@ -27,35 +26,63 @@ post('/projects') do
 end
 
 
-get('/projects/:id') do
+get('/project/:id') do
   @id = params[:id].to_i
   project_id = params["id"].to_i
-  @projects = Project.find(project_id)
-  @volunteers = Volunteer.all
+  @project = Project.find(project_id)
+  @volunteers = @project.volunteers
   erb(:projects)
 end
 
-get('/projects/:id/update') do
+post('/project/:id') do
   @id = params[:id].to_i
   project_id = params["id"].to_i
-  @projects = Project.find(project_id)
+  name = params["name"]
+  @project = Project.find(project_id)
+  binding.pry
+  @volunteer = Volunteer.new(:name => name, :project_id => project_id, :id => nil)
+  @volunteer.save
+  @volunteers = @project.volunteers
+  erb(:projects)
+end
+
+get('/volunteer/:id')do
+  @volunteer = Volunteer.find(params.fetch("id").to_i)
+  @project = Project.find(@volunteer.project_id)
+  erb(:volunteer)
+end
+
+patch('/volunteer/:id') do
+  new_name = params['new_name']
+  volunteer = Volunteer.find(params.fetch("id").to_i)
+  volunteer.update ({:name => new_name})
+  @volunteer = Volunteer.find(params.fetch("id").to_i)
+  @projects = Project.all
+  @volunteers = Volunteer.all
+  erb(:volunteer)
+end
+
+get('/project/:id/update') do
+  @id = params[:id].to_i
+  project_id = params["id"].to_i
+  @project = Project.find(project_id)
   new_title = params["new_title"]
-  @projects.update({:title => new_title})
+  @project.update({:title => new_title})
   @volunteers = Volunteer.all
   erb(:update)
 end
 
-patch('/projects/:id/') do
+patch('/project/:id/') do
   @id = params[:id].to_i
   project_id = params["id"].to_i
-  @projects = Project.find(project_id)
+  @project = Project.find(project_id)
   new_title = params["new_title"]
-  @projects.update({:title => new_title})
+  @project.update({:title => new_title})
   @volunteers = Volunteer.all
   erb(:projects)
 end
 
-get('/projects/:id/edit') do
+get('/project/:id/edit') do
   @id = params[:id].to_i
   project_id = params["id"].to_i
   @project = Project.find(project_id)
@@ -63,7 +90,7 @@ get('/projects/:id/edit') do
   erb(:edit)
 end
 
-delete('/projects/:id') do
+delete('/project/:id') do
   # @id = params[:id].to_i
   # project_id = params["id"].to_i
   @project = Project.find(params.fetch("id").to_i)
