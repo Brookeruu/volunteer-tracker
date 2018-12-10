@@ -26,7 +26,7 @@ class Volunteer
 
 
   def save
-    volunteer_list = DB.exec("INSERT INTO volunteers (name) VALUES ('#{@name}') RETURNING id;")
+    volunteer_list = DB.exec("INSERT INTO volunteers (name, project_id) VALUES ('#{@name}', '#{@project_id}') RETURNING id;")
     @id = volunteer_list.first.fetch("id").to_i
   end
 
@@ -36,6 +36,11 @@ class Volunteer
     id = volunteer_id.fetch("id").to_i
     project_id = volunteer_id.fetch("project_id").to_i
     Volunteer.new({:name => name, :id => id, :project_id => project_id})
+  end
+
+
+  def set_project_id(id)
+    DB.exec("UPDATE volunteer SET project_id = #{id} WHERE id = #{@id}")
   end
 
 end
