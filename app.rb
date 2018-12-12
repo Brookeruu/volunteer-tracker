@@ -6,6 +6,7 @@ require("./lib/project")
 require("./lib/volunteer")
 require("pg")
 
+
 DB = PG.connect({:dbname => "volunteer_tracker_test"})
 
 get '/' do
@@ -28,19 +29,17 @@ end
 
 get('/project/:id') do
   @id = params[:id].to_i
-  project_id = params["id"].to_i
-  @project = Project.find(project_id)
+  # project_id = params["id"].to_i
+  @project = Project.find(@id)
   @volunteers = @project.volunteers
   erb(:projects)
 end
 
 post('/project/:id') do
   @id = params[:id].to_i
-  project_id = params["id"].to_i
   name = params["name"]
-  @project = Project.find(project_id)
-  binding.pry
-  @volunteer = Volunteer.new(:name => name, :project_id => project_id, :id => nil)
+  @project = Project.find(@id)
+  @volunteer = Volunteer.new(:name => name, :project_id => @id, :id => nil)
   @volunteer.save
   @volunteers = @project.volunteers
   erb(:projects)
@@ -64,8 +63,7 @@ end
 
 get('/project/:id/update') do
   @id = params[:id].to_i
-  project_id = params["id"].to_i
-  @project = Project.find(project_id)
+  @project = Project.find(@id)
   new_title = params["new_title"]
   @project.update({:title => new_title})
   @volunteers = Volunteer.all
@@ -74,8 +72,7 @@ end
 
 patch('/project/:id/') do
   @id = params[:id].to_i
-  project_id = params["id"].to_i
-  @project = Project.find(project_id)
+  @project = Project.find(@id)
   new_title = params["new_title"]
   @project.update({:title => new_title})
   @volunteers = Volunteer.all

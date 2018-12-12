@@ -31,13 +31,13 @@ class Project
 
 
   def self.find(id)
-    project_id = DB.exec("SELECT * FROM projects WHERE id = #{id};")
-    title = project_id.first.fetch("title")
+    project = DB.exec("SELECT * FROM projects WHERE id = #{id};")
+    title = project.first.fetch("title")
     Project.new({:title => title, :id => id})
   end
 
   def assign_volunteer__project_id(id)
-    project_id = DB.exec("SELECT * FROM projects WHERE id = #{id};")
+    project = DB.exec("SELECT * FROM projects WHERE id = #{id};")
     DB.exec("UPDATE volunteers SET project_id = #{id} WHERE id = #{@id}")
 
   end

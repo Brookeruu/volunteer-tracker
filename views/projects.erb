@@ -9,11 +9,11 @@
 
 <ul>
   <% @volunteers.each do |volunteer| %>
-    <li> <a href="/volunteer/<%= volunteer.id %>"> <%= volunteer.name %> </a> </li>
+    <li> <a href="/volunteer/<%= volunteer.id %>"> <%= volunteer.name %></a></li>
   <% end %>
 </ul>
 
-<form class="form-group" action="/project/:id" method="post">
+<form class="form-group" action="/project/<%= @id %>" method="post">
 
   <div class="add_volunteer">
     <label for="name">Volunteers :</label>
