@@ -91,8 +91,6 @@ get('/project/:id/edit') do
 end
 
 delete('/project/:id') do
-  # @id = params[:id].to_i
-  # project_id = params["id"].to_i
   @project = Project.find(params.fetch("id").to_i)
   @project.delete
   @projects = Project.all
