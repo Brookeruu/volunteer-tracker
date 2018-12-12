@@ -1,5 +1,16 @@
 <h3>Volunteer Profile</h3>
 
-<h4> <%= volunteer.name %> </h4>
+<h4> <%= @volunteer.name %> </h4>
 
-<h5></h5>
+<h6>Working on project:</h6>
+<h5> <%= @project.title %></h5>
+
+<form class="form-group" action="/volunteer/<%= @volunteer.id %>" method="post">
+<input type="hidden" name="_method" value="patch">
+<label for="new_name">Edit Volunteer Name</label>
+<input type="text" name="new_name" id="new_name" required>
+<button type="submit" name="button">Update Volunteer</button>
+
+</form>
+
+<a href="/"><button type="button" class="btn btn-light">Home</button></a>

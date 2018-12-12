@@ -52,10 +52,12 @@ get('/volunteer/:id')do
 end
 
 patch('/volunteer/:id') do
+  @id = params[:id].to_i
   new_name = params['new_name']
   volunteer = Volunteer.find(params.fetch("id").to_i)
-  volunteer.update ({:name => new_name})
+  volunteer.update({:name => new_name})
   @volunteer = Volunteer.find(params.fetch("id").to_i)
+    @project = Project.find(@volunteer.project_id)
   @projects = Project.all
   @volunteers = Volunteer.all
   erb(:volunteer)
