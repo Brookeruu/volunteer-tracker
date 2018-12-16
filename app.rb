@@ -66,8 +66,6 @@ end
 get('/project/:id/update') do
   @id = params[:id].to_i
   @project = Project.find(@id)
-  new_title = params["new_title"]
-  @project.update({:title => new_title})
   @volunteers = Volunteer.all
   erb(:update)
 end
