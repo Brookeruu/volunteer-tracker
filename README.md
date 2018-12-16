@@ -23,6 +23,15 @@ git clone https://github.com/Brookeruu/volunteer-tracker.git
 cd volunteer-tracker
 ```
 ```
+createdb volunteer-tracker
+```
+```
+psql volunteer-tracker < volunteer-tracker.sql
+```
+```
+createdb -T volunteer-tracker volunteer_tracker_test
+```
+```
 ruby app.rb
 ```
 and in your browser go to: http://localhost:4567/
